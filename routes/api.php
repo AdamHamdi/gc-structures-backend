@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CmsController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\ReferenceController;
 use App\Http\Controllers\ServiceController;
@@ -8,7 +9,10 @@ use App\Http\Controllers\TeamMemberController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/admin/login', [AuthController::class, 'login']);
+
+// CMS - public read
+Route::get('/cms/pages/{page}', [CmsController::class, 'getPage']);
 Route::post('/contact', [ContactSubmissionController::class, 'store']);
 
 Route::get('/services', [ServiceController::class, 'index']);
@@ -40,6 +44,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/team', [TeamMemberController::class, 'store']);
     Route::put('/team/{teamMember}', [TeamMemberController::class, 'update']);
     Route::delete('/team/{teamMember}', [TeamMemberController::class, 'destroy']);
+
+    // CMS - protected write
+    Route::put('/cms/pages/{page}/sections/{section}', [CmsController::class, 'updateSection']);
 
     // Contact submissions
     Route::get('/contact', [ContactSubmissionController::class, 'index']);
