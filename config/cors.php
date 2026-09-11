@@ -7,6 +7,7 @@ return [
 
     'allowed_origins' => [
         'http://localhost:3000', // Next.js dev
+        'http://localhost:30000', // Frontend via Docker/Kubernetes NodePort
     ],
 
     'allowed_origins_patterns' => [],
